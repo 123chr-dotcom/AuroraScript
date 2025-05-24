@@ -1,0 +1,5 @@
+D:\C#\Text editor\TextEditor\bin\x64\Release\net8.0-windows\win-x64\publish\TextEditor.exe
+D:\C#\Text editor\TextEditor\bin\x64\Release\net8.0-windows\win-x64\publish\TextEditor.dll
+D:\C#\Text editor\TextEditor\bin\x64\Release\net8.0-windows\win-x64\publish\TextEditor.deps.json
+D:\C#\Text editor\TextEditor\bin\x64\Release\net8.0-windows\win-x64\publish\TextEditor.runtimeconfig.json
+D:\C#\Text editor\TextEditor\bin\x64\Release\net8.0-windows\win-x64\publish\TextEditor.pdb
