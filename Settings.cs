@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
 using System.Text.Json;
@@ -26,18 +27,33 @@ namespace TextEditor
 
         private class SettingsModel
         {
-            public FontInfo Font { get; set; }
-            public int TextColorArgb { get; set; } = DefaultTextColor.ToArgb();
-            public HorizontalAlignment Alignment { get; set; } = DefaultAlignment;
+            private FontInfo _font = new FontInfo();
+            private HorizontalAlignment _alignment = DefaultAlignment;
+            private int _textColorArgb = DefaultTextColor.ToArgb();
+
+            public FontInfo Font 
+            {
+                get => _font;
+                set => _font = value ?? new FontInfo();
+            }
+
+            public int TextColorArgb 
+            {
+                get => _textColorArgb;
+                set => _textColorArgb = value;
+            }
+
+            public HorizontalAlignment Alignment 
+            {
+                get => _alignment;
+                set => _alignment = value;
+            }
 
             public SettingsModel()
             {
-                Font = new FontInfo
-                {
-                    Name = DefaultFontName,
-                    Size = DefaultFontSize,
-                    Style = FontStyle.Regular
-                };
+                _font.Name = DefaultFontName;
+                _font.Size = DefaultFontSize;
+                _font.Style = FontStyle.Regular;
             }
         }
 
@@ -67,9 +83,11 @@ namespace TextEditor
 
         public static void SetFont(RichTextBox textBox)
         {
+            if (textBox == null) return;
+            var dialogFont = textBox.SelectionFont != null ? textBox.SelectionFont : textBox.Font;
             using var fontDialog = new FontDialog
             {
-                Font = textBox.SelectionFont ?? textBox.Font
+                Font = dialogFont
             };
 
             if (fontDialog.ShowDialog() == DialogResult.OK)
@@ -81,6 +99,7 @@ namespace TextEditor
 
         public static void SetColor(RichTextBox textBox)
         {
+            if (textBox == null) return;
             using var colorDialog = new ColorDialog
             {
                 Color = textBox.ForeColor
@@ -95,6 +114,7 @@ namespace TextEditor
 
         public static void SetAlignment(RichTextBox textBox, HorizontalAlignment alignment)
         {
+            if (textBox == null) return;
             textBox.SelectAll();
             textBox.SelectionAlignment = alignment;
             textBox.DeselectAll();
@@ -124,7 +144,10 @@ namespace TextEditor
                         // 应用其他设置
                         textBox.ForeColor = Color.FromArgb(settings.TextColorArgb);
                         textBox.SelectAll();
-                        textBox.SelectionAlignment = settings.Alignment;
+                        if (settings != null)
+                        {
+                            textBox.SelectionAlignment = settings.Alignment;
+                        }
                         textBox.DeselectAll();
                     }
                     else
@@ -158,7 +181,7 @@ namespace TextEditor
             {
                 try
                 {
-                    var currentFont = textBox.SelectionFont ?? textBox.Font;
+                    var currentFont = textBox?.SelectionFont ?? textBox?.Font ?? new Font(DefaultFontName, DefaultFontSize);
                     var settings = new SettingsModel
                     {
                         Font = new FontInfo
@@ -168,7 +191,7 @@ namespace TextEditor
                             Style = currentFont.Style
                         },
                         TextColorArgb = textBox.ForeColor.ToArgb(),
-                        Alignment = textBox.SelectionAlignment
+                    Alignment = textBox?.SelectionAlignment ?? DefaultAlignment
                     };
 
                     Directory.CreateDirectory("data");

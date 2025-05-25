@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
 namespace TextEditor
@@ -7,6 +8,7 @@ namespace TextEditor
     {
         public static void CopyText(RichTextBox textBox)
         {
+            if (textBox == null) return;
             try
             {
                 if (textBox.SelectionLength > 0)
@@ -21,6 +23,7 @@ namespace TextEditor
 
         public static void PasteText(RichTextBox textBox)
         {
+            if (textBox == null) return;
             try
             {
                 if (Clipboard.ContainsText())
@@ -35,6 +38,7 @@ namespace TextEditor
 
         public static void CutText(RichTextBox textBox)
         {
+            if (textBox == null) return;
             try
             {
                 if (textBox.SelectionLength > 0)
@@ -52,6 +56,7 @@ namespace TextEditor
 
         public static void SelectAllText(RichTextBox textBox)
         {
+            if (textBox == null) return;
             textBox.SelectAll();
         }
     }
