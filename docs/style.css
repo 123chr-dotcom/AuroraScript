@@ -1,0 +1,81 @@
+/* 基础样式 */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2980b9;
+    --text-color: #333;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-color);
+}
+
+/* 布局样式 */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+nav {
+    background-color: var(--secondary-color);
+    padding: 1rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    margin: 0 1rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+footer {
+    background-color: var(--dark-color);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    nav li {
+        margin: 0.5rem 0;
+    }
+}
